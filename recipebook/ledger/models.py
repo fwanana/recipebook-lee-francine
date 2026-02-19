@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.db import models
 from django.urls import reverse
 
@@ -17,6 +16,6 @@ class Recipe(models.Model):
         return reverse('recipe_detail', args=[self.pk])
 
 class RecipeIngredient(models.Model):
-    quantity = models.CharField(max_length=3)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name="recipe_ingredients")
+    quantity = models.CharField(max_length=3)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="recipe")
