@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if request.user.is_authenticated %}
+Author: {{ recipe.author.name }}
+{% endif %}
 <h2>{{ recipe.name }}</h2>
 <ul>
     {% for ingredient in recipe.ingredients.all %}
