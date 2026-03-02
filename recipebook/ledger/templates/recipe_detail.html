@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 
+{% block page_title %}
+Recipe Detail
+{% endblock %}
+
 {% block content %}
 {% if request.user.is_authenticated %}
-Author: {{ recipe.author.name }}
+<p><strong>Author: {{ recipe.author.name }}</strong></p>
 {% endif %}
 <h2>{{ recipe.name }}</h2>
 <ul>
@@ -10,6 +14,7 @@ Author: {{ recipe.author.name }}
     <li>{{ ingredient.ingredient.name }} - {{ ingredient.quantity }}</li>
     {% endfor %}
 </ul>
-
+<p><strong>Created on:</strong> {{ recipe.created_on }}</p>
+<p><strong>Updated on:</strong> {{ recipe.updated_on }}</p>
 
 {% endblock %}

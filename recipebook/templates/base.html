@@ -1,21 +1,24 @@
 <html lang="en">
 
 <head>
+    <title>Recipe Book</title>
 </head>
 
 <body>
-    <h1>Recipe Book</h1>
-    {% if request.user.is_authenticated %}
-    Hello, {{ request.user }}!
-    <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
-    {% else %}
-    <a href="{% url 'login' %}">Login</a>
-    {% endif %}
-
-    {%block content %}
+    <header>
+        <h1>Recipe Book</h1>
+        {% if request.user.is_authenticated %}
+        Hello, {{ request.user }}!
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </header>
+    <h2>{% block page_title %}{% endblock %}</h2>
+    {% block content %}
     {% endblock %}
 </body>
 

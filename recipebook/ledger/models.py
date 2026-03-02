@@ -14,8 +14,11 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    author = models.OneToOneField(
-        Profile, on_delete=models.CASCADE, related_name="recipe")
+    author = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name="recipe"
+    )
     name = models.CharField(max_length=50)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -29,7 +32,13 @@ class Recipe(models.Model):
 
 class RecipeIngredient(models.Model):
     ingredient = models.ForeignKey(
-        Ingredient, on_delete=models.CASCADE, related_name="recipe")
+        Ingredient,
+        on_delete=models.CASCADE,
+        related_name="recipe_ingredients"
+    )
     quantity = models.CharField(max_length=50)
     recipe = models.ForeignKey(
-        Recipe, on_delete=models.CASCADE, related_name="ingredients")
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name="ingredients"
+    )
