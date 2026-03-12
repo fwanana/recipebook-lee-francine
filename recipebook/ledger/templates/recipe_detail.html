@@ -6,6 +6,9 @@ Recipe Detail
 
 {% block content %}
 {% if request.user.is_authenticated %}
+{% for image in recipe.images.all %}
+<img src="{{ image.image.url }}" alt="{{ image.description }}">
+{% endfor %}
 <p><strong>Author: {{ recipe.author.name }}</strong></p>
 {% endif %}
 <h2>{{ recipe.name }}</h2>
