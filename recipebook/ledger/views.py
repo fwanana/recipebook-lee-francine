@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic.detail import DetailView
@@ -32,4 +32,16 @@ class RecipeImageCreateView(LoginRequiredMixin, CreateView):
     template_name = 'recipe_image_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('recipe_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('ledger:recipe_detail', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recipe'] = Recipe.objects.get(pk=self.kwargs['pk'])
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = RecipeImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.instance.recipe_id = self.kwargs['pk']
+            form.save()
+        return redirect(self.get_success_url())
